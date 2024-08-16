@@ -1,0 +1,11 @@
+basura.c$
+bonus$
+files$
+include$
+libft$
+ls$
+Makefile$
+pipex_bonus$
+README.md$
+src$
+test.c$
