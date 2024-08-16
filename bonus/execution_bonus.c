@@ -15,7 +15,6 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 
 	if ((access(str[0], F_OK | X_OK) == 0) && ft_strnstr(str[0], "./", 2))
 	{
-		dprintf(2, "\n\nEntra en el if del access! El del [./]\n");
 		if (execve(str[0], str, pipex->envp) == -1)
 		{
 			print_error("command not found: ", str[0]);
@@ -27,7 +26,6 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 	}
 	else if ((access(str[0], F_OK | X_OK) != 0) && ft_strchr(str[0], '/'))
 	{
-		dprintf(2, "\n\nEntra en el else if del access! El del [/]\n");
 		print_error("command not found: ", str[0]);
 		free(cmd);
 		free_double_str(str);
@@ -36,42 +34,16 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 	}
 	else
 	{
-		int i;
-
-		i = 0;
-		dprintf(2, "\n\nEntra en el else del access! El del path\n\n");
 		temp = search_path(pipex, str);
 
-		for (i = 0; str[i] != NULL; i++) 
-		{
-			dprintf(2, "str[%d]: %s\n", i, str[i]);
-		}
-
-		if (str[i] == NULL)
-			dprintf(2, "str[%d]: %s\n", i, str[i]);
-
-		dprintf(2, "\n\nEl temp es: %s\n", temp);
-
-		//Imprimir la variable de entorno
-		/*for (i = 0; pipex->envp[i] != NULL; i++)
-		{
-			dprintf(2, "envp[%d]: %s\n", i, pipex->envp[i]);
-		}*/
-
-		//dprintf(2, "El intento de ejecucion es %d\n", execve(temp, str, pipex->envp));
 		if (temp == NULL || execve(temp, str, pipex->envp) == -1)
 		{
-			print_error("--command not found: ", cmd);
+			print_error("-- command not found: ", cmd);
 			free_double_str(str);
 			free_double_str(pipex->path);
 			exit(127);
 		}
 	}
-	free_double_str(str);
-    free(cmd);
-	free(temp);
-
-	exit(127);
 }
 
 void execute(t_pipex *pipex, char *command_argv)
@@ -81,7 +53,6 @@ void execute(t_pipex *pipex, char *command_argv)
 	str = ft_split(command_argv, ' ');
 	if (str == NULL)
 		print_error_no_cmd(RED "Error\n" END "Split failed\n", 1);
-	dprintf(2, "\n\nEntra en execute; y command argv es: [%s] ademas de STR[0] es [%s]\n", command_argv, str[0]);
 	check_if_accesible(pipex, str, command_argv);
 }
 
