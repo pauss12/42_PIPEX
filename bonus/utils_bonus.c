@@ -34,6 +34,7 @@ char *search_path(t_pipex *pipex, char **cmd_splitted)
 	{
 		path_slash = ft_strjoin(pipex->path[i], "/");
 		line = ft_strjoin(path_slash, cmd_splitted[0]);
+		//line = ft_strjoin(line, "\0");
 		free(path_slash);
 		if (access(line, F_OK | X_OK) == 0)
 			return (line);
