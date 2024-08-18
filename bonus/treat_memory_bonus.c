@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/pipex_bonus.h"
 
-void initialize_pipex(t_pipex *pipex, char **envp, int argc)
+void	initialize_pipex(t_pipex *pipex, char **envp, int argc)
 {
 	pipex->envp = envp;
 	pipex->path = get_path(pipex->envp);
@@ -27,9 +26,9 @@ void initialize_pipex(t_pipex *pipex, char **envp, int argc)
 	pipex->fd[1] = -1;
 }
 
-void free_double_str(char **str)
+void	free_double_str(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != NULL)
@@ -38,4 +37,3 @@ void free_double_str(char **str)
 		i++;
 	}
 }
-

@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 19:50:50 by pmendez-          #+#    #+#             */
+/*   Updated: 2024/07/29 19:50:52 by pmendez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
 
-void print_error(char *error_message, char *cmd)
+void	print_error(char *error_message, char *cmd)
 {
-	char *str;
+	char	*str;
 
 	if (cmd == NULL)
-		return;
+		return ;
 	str = ft_strjoin(error_message, cmd);
 	ft_putendl_fd(str, 2);
 	free(str);
 }
 
-void print_error_no_cmd(char *error_message, int code)
+void	error_no_cmd(char *error_message, int code)
 {
 	ft_putendl_fd(error_message, 2);
 	exit(code);
 }
 
-char *search_path(t_pipex *pipex, char **cmd_splitted)
+char	*search_path(t_pipex *pipex, char **cmd_splitted)
 {
-	char *line;
-	char *path_slash;
-	int i;
+	char	*line;
+	char	*path_slash;
+	int		i;
 
 	i = 0;
 	if (pipex->path == NULL)
@@ -43,10 +54,10 @@ char *search_path(t_pipex *pipex, char **cmd_splitted)
 	return (cmd_splitted[0]);
 }
 
-char **get_path(char **envp)
+char	**get_path(char **envp)
 {
-	int i;
-	char **str;
+	int		i;
+	char	**str;
 
 	i = 0;
 	str = NULL;
@@ -62,9 +73,9 @@ char **get_path(char **envp)
 	return (NULL);
 }
 
-void close_fd(int *fd, char *name)
+void	close_fd(int *fd, char *name)
 {
-	char *str;
+	char	*str;
 
 	if (close(*fd) == -1)
 	{

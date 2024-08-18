@@ -68,7 +68,7 @@ upload:
 	@git push
 
 norm: 
-	@norminette src/*.c include/*.h libft/*/*.c libft/*.h
+	@norminette src/*.c include/*.h libft/*/*.c libft/*.h bonus/*.c
 
 re-bonus: fclean bonus
 

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 13:22:41 by pmendez-          #+#    #+#             */
+/*   Updated: 2024/07/30 13:22:43 by pmendez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
 
-static void free_strings(char **str, char **path, char *cmd)
+static void	free_strings(char **str, char **path, char *cmd)
 {
 	print_error("command not found: ", cmd);
 	if (str != NULL)
@@ -11,7 +22,7 @@ static void free_strings(char **str, char **path, char *cmd)
 	exit(127);
 }
 
-void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
+void	check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 {
 	char	*temp;
 
@@ -33,13 +44,13 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 	}
 }
 
-void execute(t_pipex *pipex, char *command_argv)
+void	execute(t_pipex *pipex, char *command_argv)
 {
-	char **str;
+	char	**str;
 
 	str = ft_split(command_argv, ' ');
 	if (str == NULL)
-		print_error_no_cmd(RED "Error\n" END "Split failed\n", 1);
+		error_no_cmd(RED "Error\n" END "Split failed\n", 1);
 	check_if_accesible(pipex, str, command_argv);
 }
 
@@ -113,7 +124,6 @@ void execute(t_pipex *pipex, char *command_argv)
 		dprintf(2, "\nstr[0]: %s\n", str[0]);
 		dprintf(2, "str[1]: %s\n\nmake", str[1]);
 
-		dprintf(2, "\nEl intento de ejecucion es %d\n", execve(temp, str, pipex->envp));
 		if (temp == NULL || execve(temp, str, pipex->envp) == -1)
 		{
 			print_error("command not found: ", cmd);
