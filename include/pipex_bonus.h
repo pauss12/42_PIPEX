@@ -1,26 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmendez- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 19:51:48 by pmendez-          #+#    #+#             */
+/*   Updated: 2024/07/29 19:51:59 by pmendez-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_BONUS_H
-#define PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/wait.h>
 
-#include "../libft/libft.h"
+# include "../libft/libft.h"
 
-#define RED "\033[0;31m"
-#define END "\033[0m"
+# define RED "\033[0;31m"
+# define END "\033[0m"
 
 typedef struct s_pipex
 {
-	char **path;
-	char **envp;
-	int pipe_father[2];
-	int fd[2];
-	pid_t pid;
-	int index;
-	int num_cmds;
-} t_pipex;
+	char	**path;
+	char	**envp;
+	int		pipe_father[2];
+	int		fd[2];
+	pid_t	pid;
+	int		index;
+	int		num_cmds;
+}	t_pipex;
 
 //pipex.c
 void	close_pipes(t_pipex *pipex);

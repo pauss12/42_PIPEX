@@ -37,7 +37,7 @@ char	**get_path(char **envp);
 void	free_double_str(char **str);
 void	print_error(char *error_message, char *cmd);
 char	*search_path(t_pipex *pipex, char **cmd_splitted);
-void	print_error_no_cmd(char *error_message, int code);
+void	error_no_cmd(char *error_message, int code);
 
 // execution.c
 void	first_command(t_pipex pipex, char *cmd, char **envp, char *file_name);

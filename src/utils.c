@@ -23,7 +23,7 @@ void	print_error(char *error_message, char *cmd)
 	free(str);
 }
 
-void print_error_no_cmd(char *error_message, int code)
+void	error_no_cmd(char *error_message, int code)
 {
 	ft_putendl_fd(error_message, 2);
 	exit(code);

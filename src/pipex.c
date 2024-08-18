@@ -14,26 +14,13 @@
 
 void	end_process(t_pipex pipex)
 {
-	// close(pipex.fd[0]);
-	// close(pipex.fd[1]);
-	// if (pipex.fd[0] == -1)
-	// {
-	// 	if (close(pipex.fd[0]) == -1)
-	// 		print_error_no_cmd(RED "Error\n" END "Error closing fd[0] **\n", 1);
-	// }
-	// // Comprobar si fichero de salida esta cerrado
-	// if (pipex.fd[1] == -1)
-	// {
-	// 	if (close(pipex.fd[1]) == -1)
-	// 		print_error_no_cmd(RED "Error\n" END "Error closing fd[1]\n", 1);
-	// }
 	if (close(pipex.pipe_fd[1]) == -1)
 		print_error_no_cmd(RED "Error\n" END "Error closing pipe_fd[1]\n", 1);
 	if (close(pipex.pipe_fd[0]) == -1)
 		print_error_no_cmd(RED "Error\n" END "Error closing pipe_fd[0]\n", 1);
 }
 
-static void initialize(t_pipex *pipex)
+static void	initialize(t_pipex *pipex)
 {
 	pipex->path = NULL;
 	pipex->pipe_fd[0] = -1;
