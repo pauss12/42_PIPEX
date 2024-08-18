@@ -1,46 +1,36 @@
 
 #include "../include/pipex_bonus.h"
 
+static void free_strings(char **str, char **path, char *cmd)
+{
+	print_error("command not found: ", cmd);
+	if (str != NULL)
+		free_double_str(str);
+	if (path != NULL)
+		free_double_str(path);
+	exit(127);
+}
+
 void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 {
 	char	*temp;
 
 	temp = NULL;
 	if (*str == NULL)
-	{
-		free_double_str(str);
-		print_error("command not found: ", cmd);
-		exit(127);
-	}
+		free_strings(str, pipex->path, cmd);
 
 	if ((access(str[0], F_OK | X_OK) == 0) && ft_strnstr(str[0], "./", 2))
 	{
 		if (execve(str[0], str, pipex->envp) == -1)
-		{
-			print_error("command not found: ", str[0]);
-			free_double_str(str);
-			free_double_str(pipex->path);
-			exit(127);
-		}
+			free_strings(str, pipex->path, str[0]);
 	}
 	else if ((access(str[0], F_OK | X_OK) != 0) && ft_strchr(str[0], '/'))
-	{
-		print_error("command not found: ", str[0]);
-		free_double_str(str);
-		free_double_str(pipex->path);
-		exit(127);
-	}
+		free_strings(str, pipex->path, str[0]);
 	else
 	{
 		temp = search_path(pipex, str);
-
 		if (temp == NULL || execve(temp, str, pipex->envp) == -1)
-		{
-			print_error("-- command not found: ", cmd);
-			free_double_str(str);
-			free_double_str(pipex->path);
-			exit(127);
-		}
+			free_strings(str, pipex->path, cmd);
 	}
 }
 
