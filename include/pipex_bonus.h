@@ -20,7 +20,6 @@ typedef struct s_pipex
 	pid_t pid;
 	int index;
 	int num_cmds;
-	int num_pipes;
 } t_pipex;
 
 //pipex.c
@@ -29,7 +28,6 @@ void	close_all_fds(t_pipex *pipex);
 // reserve_and_destroy_memory.c
 void	initialize_pipex(t_pipex *pipex, char **envp, int argc);
 void	free_double_str(char **str);
-void	free_all(t_pipex *pipex);
 
 // utils_bonus.c
 void	print_error(char *error_message, char *cmd);
