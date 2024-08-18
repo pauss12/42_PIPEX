@@ -90,12 +90,11 @@ void command(t_pipex *pipex, char **argv, int argc)
 			print_error_no_cmd(RED "Error\n" END "Error creating child process\n", 1);
 		else if (pipex->pid == 0)
 		{
+			printf("Entra aqui, INDEX %d\n", pipex->index);
 			process_duplicates(pipex, argv, argc);
-			//exit(0);
 		}
 		else
 		{
-			//printf("Entra aqui, INDEX %d\n", pipex->index);
 			waitpid(pipex->pid, NULL, 0);
 			pipex->index++;
 		}
