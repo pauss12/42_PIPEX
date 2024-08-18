@@ -99,7 +99,7 @@ void	execute(t_pipex pipex, char *command_argv, char **envp)
 	if (str == NULL)
 	{
 		free_double_str(str);
-		print_error_no_cmd(RED "Error\n" END "Split failed\n", 1);
+		error_no_cmd(RED "Error\n" END "Split failed\n", 1);
 	}
 	check_if_accesible(str, pipex, command_argv, envp);
 }
