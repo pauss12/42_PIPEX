@@ -19,7 +19,6 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 		{
 			print_error("command not found: ", str[0]);
 			free_double_str(str);
-			free(cmd);
 			free_double_str(pipex->path);
 			exit(127);
 		}
@@ -27,7 +26,6 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 	else if ((access(str[0], F_OK | X_OK) != 0) && ft_strchr(str[0], '/'))
 	{
 		print_error("command not found: ", str[0]);
-		free(cmd);
 		free_double_str(str);
 		free_double_str(pipex->path);
 		exit(127);
