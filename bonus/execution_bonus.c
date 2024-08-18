@@ -18,7 +18,6 @@ void check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 	temp = NULL;
 	if (*str == NULL)
 		free_strings(str, pipex->path, cmd);
-
 	if ((access(str[0], F_OK | X_OK) == 0) && ft_strnstr(str[0], "./", 2))
 	{
 		if (execve(str[0], str, pipex->envp) == -1)
