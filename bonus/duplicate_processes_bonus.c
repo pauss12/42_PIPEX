@@ -46,14 +46,32 @@ static void	last_iteration(t_pipex *pipex, char *argv[], int argc)
 	execute(pipex, argv[argc - 2]);
 }
 
-void	process_duplicates(t_pipex *pipex, char *argv[], int argc)
+static void	other_iterations(t_pipex *pipex, char *argv[], int argc)
 {
-	if (pipex->index == 0)
-		first_iteration(pipex, argv);
-	else if (pipex->index == pipex->num_cmds - 1)
-	{
-		last_iteration(pipex, argv, argc);
-	}
+	int		pipe_aux[2];
+
+	dprintf(2, "EL comadno entra aqui\n");
+
+	//Creo una pipe que me va a servir para comunicar el hijo con el padre
+	if (pipe(pipe_aux) == -1)
+		error_no_cmd(RED "Error\n" END "Error creating pipe\n", 1);
+		
+	if (dup2(pipex->pipe_father[0], STDIN_FILENO) == -1)
+		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1);
+
+	close_fd(&pipex->pipe_father[0], "pipex->pipe_father[0]");
+	close_fd(&pipex->pipe_father[1], "pipex->pipe_father[1]");
+
+	if (dup2(pipe_aux[1], STDOUT_FILENO) == -1)
+		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
+
+	close_fd(&pipe_aux[1], "pipe_aux[1]");
+	close_fd(&pipe_aux[0], "pipe_aux[0]");
+
+	
+	pipex->pipe_father[0] = pipe_aux[0];
+
+	execute(pipex, argv[argc - 1 - pipex->index]);
 }
 
 void	command(t_pipex *pipex, char **argv, int argc)
@@ -67,9 +85,16 @@ void	command(t_pipex *pipex, char **argv, int argc)
 	{
 		pipex->pid = fork();
 		if (pipex->pid == -1)
-			error_no_cmd(RED "Error\n" END "Error creating child process\n", 1);
+			error_no_cmd(RED "Error\n" END "Error creating child\n", 1);
 		else if (pipex->pid == 0)
-			process_duplicates(pipex, argv, argc);
+		{
+			if (pipex->index == 0)
+				first_iteration(pipex, argv);
+			else if (pipex->index == pipex->num_cmds - 1)
+				last_iteration(pipex, argv, argc);
+			else
+				other_iterations(pipex, argv, argc);
+		}
 		pipex->index++;
 	}
 }
