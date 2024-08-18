@@ -49,7 +49,6 @@ char	**get_path(char **envp);
 void	close_fd(int *fd, char *name);
 
 // execution_bonus.c
-void	process_duplicates(t_pipex *pipex, char *argv[], int argc);
 void	command(t_pipex *pipex, char **argv, int argc);
 void	check_if_accesible(t_pipex *pipex, char **str, char *cmd);
 void	execute(t_pipex *pipex, char *command_argv);
