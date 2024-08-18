@@ -23,7 +23,7 @@ typedef struct s_pipex
 } t_pipex;
 
 //pipex.c
-void	close_all_fds(t_pipex *pipex);
+void	close_pipes(t_pipex *pipex);
 
 // reserve_and_destroy_memory.c
 void	initialize_pipex(t_pipex *pipex, char **envp, int argc);
