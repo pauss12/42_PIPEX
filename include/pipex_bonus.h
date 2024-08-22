@@ -22,16 +22,20 @@
 
 # define RED "\033[0;31m"
 # define END "\033[0m"
+# define READ 0
+# define WRITE 1
 
 typedef struct s_pipex
 {
 	char	**path;
 	char	**envp;
 	int		pipe_father[2];
+	int		pipe_aux[2];
 	int		fd[2];
 	pid_t	pid;
 	int		index;
 	int		num_cmds;
+	int		flag;
 }	t_pipex;
 
 //pipex.c
