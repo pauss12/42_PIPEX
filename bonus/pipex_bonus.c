@@ -6,13 +6,12 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 19:50:45 by pmendez-          #+#    #+#             */
-/*   Updated: 2024/08/18 20:59:09 by paula            ###   ########.fr       */
+/*   Updated: 2024/08/25 23:30:45 by pmendez-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <unistd.h>
-
 #include "../include/pipex_bonus.h"
 
 void	close_pipes(t_pipex *pipex)
@@ -40,7 +39,6 @@ int	main(int argc, char *argv[], char **envp)
 		if (WEXITSTATUS(status) != 0 && WEXITSTATUS(status) != 127)
 			exit(0);
 	}
-
 	if (WEXITSTATUS(status) == 127)
 		exit(127);
 	return (0);
