@@ -12,12 +12,12 @@
 
 #include "../include/pipex_bonus.h"
 
-static void	first_iteration(t_pipex *pipex, char *argv[])
+static void	first_iteration(t_pipex *pipex, char *infile, char *command_argv)
 {
-	pipex->fd[READ] = open(argv[1], O_RDONLY);
+	pipex->fd[READ] = open(infile, O_RDONLY);
 	if (pipex->fd[READ] == -1)
 		error_no_cmd(RED "Error\n" END "Error opening files\n", 1);
-	if (access(argv[WRITE], R_OK) == -1)
+	if (access(infile, R_OK) == -1)
 		error_no_cmd(RED "Error\n" END "No read permissions for input\n", 1);
 	if (dup2(pipex->fd[READ], STDIN_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1);
@@ -26,15 +26,15 @@ static void	first_iteration(t_pipex *pipex, char *argv[])
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
 	close_fd(&pipex->pipe_father[WRITE], "pipex->pipe_father[WRITE]");
 	close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
-	execute(pipex, argv[2]);
+	execute(pipex, command_argv);
 }
 
-static void	last_iteration(t_pipex *pipex, char *argv[], int argc)
+static void	last_iteration(t_pipex *pipex, char *outfile, char *command_argv)
 {
-	pipex->fd[WRITE] = open(argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	pipex->fd[WRITE] = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (pipex->fd[WRITE] == -1)
 		error_no_cmd(RED "Error\n" END "Error opening files\n", 1);
-	if (access(argv[argc - 1], W_OK) == -1)
+	if (access(outfile, W_OK) == -1)
 		ft_putstr_fd(RED "Error\n" END "No write permissions for output\n", 1);
 	if (dup2(pipex->fd[WRITE], STDOUT_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
@@ -43,7 +43,7 @@ static void	last_iteration(t_pipex *pipex, char *argv[], int argc)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1);
 	close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
 	close_fd(&pipex->pipe_father[WRITE], "pipex->pipe_father[WRITE]");
-	execute(pipex, argv[argc - 2]);
+	execute(pipex, command_argv);
 }
 
 static void	other_iterations(t_pipex *pipex, char *argv[])
@@ -92,9 +92,9 @@ void	command(t_pipex *pipex, char **argv, int argc)
 		else if (pipex->pid == 0)
 		{
 			if (pipex->index == 0)
-				first_iteration(pipex, argv);
+				first_iteration(pipex, argv[1], argv[2]);
 			else if (pipex->index == pipex->num_cmds - 1)
-				last_iteration(pipex, argv, argc);
+				last_iteration(pipex, argv[argc - 1], argv[argc - 2]);
 			else
 				other_iterations(pipex, argv);
 		}

@@ -29,13 +29,17 @@ int	main(int argc, char *argv[], char **envp)
 
 	status = 0;
 	initialize_pipex(&pipex, envp, argc);
-	command(&pipex, argv, argc);
+	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+	{
+		printf("tiene here_doc\n");
+	}
+	else
+		command(&pipex, argv, argc);
 	close_pipes(&pipex);
 	while (pipex.index >= 0)
 	{
 		waitpid(-1, &status, 0);
 		pipex.index--;
-		printf("Status: %d\n", status);
 		if (WEXITSTATUS(status) != 0 && WEXITSTATUS(status) != 127)
 			exit(0);
 	}

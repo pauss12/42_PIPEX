@@ -1,3 +1,5 @@
 .vscode
 pipex
 *.o
+pipex_bonus
+libft.a
