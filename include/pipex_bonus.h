@@ -35,7 +35,6 @@ typedef struct s_pipex
 	pid_t	pid;
 	int		index;
 	int		num_cmds;
-	int		flag;
 }	t_pipex;
 
 //pipex.c
