@@ -53,3 +53,51 @@ void	execute(t_pipex *pipex, char *command_argv)
 		error_no_cmd(RED "Error\n" END "Split failed\n", 1);
 	check_if_accesible(pipex, str, command_argv);
 }
+
+
+/*
+	dprintf(2, "EL comadno entra aqui y utiliza el comando [%s]\n", argv[argc - 1 - pipex->index]);
+
+	dprintf(2, "\npipe_father[READ] es %d\n", pipex->pipe_father[READ]);
+	dprintf(2, "pipe_father[WRITE] es %d\n\n", pipex->pipe_father[WRITE]);
+
+	if (pipe(pipex->pipe_aux) == -1)
+		error_no_cmd(RED "Error\n" END "Error creating pipe\n", 1);
+
+	dprintf(2, "El pipe aux[READ] es %d\n", pipex->pipe_aux[READ]);
+	dprintf(2, "El pipe aux[WRITE] es %d\n\n", pipex->pipe_aux[WRITE]);
+		
+	if (dup2(pipex->pipe_father[READ], STDIN_FILENO) == -1)
+	{
+		close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
+		close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
+		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1);
+	}
+
+	//dprintf(2, "dup2 en -------------------\n");
+
+	close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
+	close_fd(&pipex->pipe_father[WRITE], "pipex->pipe_father[WRITE]");
+
+	//dprintf(2, "despuees de cerrar los pipes\n");
+
+	if (dup2(pipex->pipe_aux[WRITE], STDOUT_FILENO) == -1)
+	{
+		close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
+		close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
+		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
+	}
+
+	//dprintf(2, "2   dup2 en -------------------\n");
+	close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
+
+
+	//dprintf(2, "2 despuees de cerrar los pipes\n");
+
+	//dprintf(2, "REDIRECCIONAR A %s\n", argv[argc - 1 - pipex->index]);
+
+
+	dprintf(2, "pipe_father[READ] = %d\n", pipex->pipe_father[READ]);
+	execute(pipex, argv[argc - 1 - pipex->index]);
+
+*/

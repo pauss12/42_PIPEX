@@ -41,8 +41,6 @@ static void	last_iteration(t_pipex *pipex, char *argv[], int argc)
 	if (dup2(pipex->fd[WRITE], STDOUT_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
 	close_fd(&pipex->fd[WRITE], "pipex->fd[1]");
-	
-	dprintf(2, "EN EL HIJO: pipe_father[READ] = %d\n", pipex->pipe_father[READ]);
 
 	if (dup2(pipex->pipe_father[READ], STDIN_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "--dup2 failed in STDIN\n", 1);
@@ -53,16 +51,12 @@ static void	last_iteration(t_pipex *pipex, char *argv[], int argc)
 
 static void other_iterations(t_pipex *pipex, char *argv[])
 {
-    //dprintf(2, "pipe_aux[READ] = %d\n", pipex->pipe_aux[READ]);
-    //dprintf(2, "pipe_aux[WRITE] = %d\n", pipex->pipe_aux[WRITE]);
     if (dup2(pipex->pipe_father[READ], STDIN_FILENO) == -1)
     {
         close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
         close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
         error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1);
     }
-
-    //dprintf(2, "STDIN_FILENO (pipe_father[READ]) = %d\n", STDIN_FILENO);
 
     close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
     close_fd(&pipex->pipe_father[WRITE], "pipex->pipe_father[WRITE]");
@@ -74,20 +68,11 @@ static void other_iterations(t_pipex *pipex, char *argv[])
         error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
     }
 
-    //dprintf(2, "STDOUT_FILENO (pipe_aux[WRITE]) = %d\n", STDOUT_FILENO);
-
     close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
     close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
 
-    //dprintf(2, "Antes de ejecutar\n");
-
     execute(pipex, argv[2 + pipex->index]);
 }
-
-/*
-	close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
-	close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
-*/
 
 void	command(t_pipex *pipex, char **argv, int argc)
 {
@@ -98,14 +83,19 @@ void	command(t_pipex *pipex, char **argv, int argc)
 	}
 
 	if (pipe(pipex->pipe_aux) == -1)
+	{
 		error_no_cmd(RED "Error\n" END "Error creating pipe\n", 1);
+		exit(1);
+	}
 
 	while (pipex->index < pipex->num_cmds)
 	{
-		//Si no es el primer comando, ni tampoco el ultimo comando, activa el flag
+		
 		if (pipex->index != 0 && pipex->index != pipex->num_cmds - 1)
 			pipex->flag = 1;
+
 		pipex->pid = fork();
+	
 		if (pipex->pid == -1)
 			error_no_cmd(RED "Error\n" END "Error creating child\n", 1);
 		else if (pipex->pid == 0)
@@ -126,68 +116,41 @@ void	command(t_pipex *pipex, char **argv, int argc)
 				other_iterations(pipex, argv);
 			}
 		}
-		printf("\nEl pid es %d\n\n", pipex->pid);
-		printf("EL flag es %d\n", pipex->flag);
-		if (pipex->flag == 1)
+		else
 		{
-			dprintf(2, "Esperando al hijo\n");
-			close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
-			dprintf(2, "pipe_father[READ] = %d\n", pipex->pipe_father[READ]);
-			dprintf(2, "pipe_aux[READ] = %d\n", pipex->pipe_aux[READ]);
-			pipex->pipe_father[READ] = pipex->pipe_aux[READ];
+			//close_fd(&pipex->pipe_father[WRITE], "pipex->pipe_father[WRITE]");
+			if (pipex->flag == 1)
+			{
+				dprintf(2, "Esperando al hijo\n");
 
-			dprintf(2, "pipe_father[READ] = %d\n", pipex->pipe_father[READ]);
-			dprintf(2, "pipe_aux[READ] = %d\n", pipex->pipe_aux[READ]);
+				dprintf(2, "EN EL HIJO: pipe_father[READ] = %d\n", pipex->pipe_father[READ]);
+				dprintf(2, "EN EL HIJO: pipe_father[WRITE] = %d\n", pipex->pipe_father[WRITE]);
+				dprintf(2, "EN EL HIJO: pipe_aux[READ] = %d\n", pipex->pipe_aux[READ]);
+				dprintf(2, "EN EL HIJO: pipe_aux[WRITE] = %d\n", pipex->pipe_aux[WRITE]);				
 
-			pipex->flag = 0;
+				close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
+
+				pipex->pipe_father[READ] = pipex->pipe_aux[READ];
+
+				pipex->flag = 0;
+			}
+
 		}
 		pipex->index++;
 	}
 }
 
-/*
-	dprintf(2, "EL comadno entra aqui y utiliza el comando [%s]\n", argv[argc - 1 - pipex->index]);
 
-	dprintf(2, "\npipe_father[READ] es %d\n", pipex->pipe_father[READ]);
-	dprintf(2, "pipe_father[WRITE] es %d\n\n", pipex->pipe_father[WRITE]);
+// printf("\nEl pid es %d\n\n", pipex->pid);
+		// printf("EL flag es %d\n", pipex->flag);
 
-	if (pipe(pipex->pipe_aux) == -1)
-		error_no_cmd(RED "Error\n" END "Error creating pipe\n", 1);
+		// if (pipex->flag == 1)
+		// {
+		// 	dprintf(2, "Esperando al hijo\n");
 
-	dprintf(2, "El pipe aux[READ] es %d\n", pipex->pipe_aux[READ]);
-	dprintf(2, "El pipe aux[WRITE] es %d\n\n", pipex->pipe_aux[WRITE]);
-		
-	if (dup2(pipex->pipe_father[READ], STDIN_FILENO) == -1)
-	{
-		close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
-		close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
-		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1);
-	}
+		// 	close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
+	
+		// 	pipex->pipe_father[READ] = pipex->pipe_aux[READ];
 
-	//dprintf(2, "dup2 en -------------------\n");
-
-	close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");
-	close_fd(&pipex->pipe_father[WRITE], "pipex->pipe_father[WRITE]");
-
-	//dprintf(2, "despuees de cerrar los pipes\n");
-
-	if (dup2(pipex->pipe_aux[WRITE], STDOUT_FILENO) == -1)
-	{
-		close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
-		close_fd(&pipex->pipe_aux[READ], "pipe_aux[READ]");
-		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1);
-	}
-
-	//dprintf(2, "2   dup2 en -------------------\n");
-	close_fd(&pipex->pipe_aux[WRITE], "pipe_aux[WRITE]");
-
-
-	//dprintf(2, "2 despuees de cerrar los pipes\n");
-
-	//dprintf(2, "REDIRECCIONAR A %s\n", argv[argc - 1 - pipex->index]);
-
-
-	dprintf(2, "pipe_father[READ] = %d\n", pipex->pipe_father[READ]);
-	execute(pipex, argv[argc - 1 - pipex->index]);
-
-*/
+		// 	pipex->flag = 0;
+		// }
