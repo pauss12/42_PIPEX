@@ -37,10 +37,7 @@ char	*search_path(t_pipex *pipex, char **cmd_splitted)
 
 	i = 0;
 	if (pipex->path == NULL)
-	{
-		ft_putendl_fd("Error: PATH not found", 2);
 		return (NULL);
-	}
 	while (pipex->path[i] != NULL)
 	{
 		path_slash = ft_strjoin(pipex->path[i], "/");
@@ -66,6 +63,10 @@ char	**get_path(char **envp)
 		if (ft_strncmp(envp[i], "PATH=", 5) == 0)
 		{
 			str = ft_split(envp[i] + 5, ':');
+			if (str == NULL)
+			{
+				error_no_cmd(RED "Error\n" END "Split failed\n", 1);
+			}
 			return (str);
 		}
 		i++;

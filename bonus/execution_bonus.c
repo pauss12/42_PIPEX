@@ -36,6 +36,11 @@ void	check_if_accesible(t_pipex *pipex, char **str, char *cmd)
 	}
 	else if ((access(str[0], F_OK | X_OK) != 0) && ft_strchr(str[0], '/'))
 		free_strings(str, pipex->path, str[0]);
+	else if ((access(str[0], F_OK | X_OK) == 0) && ft_strchr(str[0], '/'))
+	{
+		if (execve(str[0], str, pipex->envp) == -1)
+			free_strings(str, pipex->path, str[0]);
+	}
 	else
 	{
 		temp = search_path(pipex, str);

@@ -32,7 +32,7 @@ static char	*ft_read_file(int fd, char *str)
 	if (buffer == NULL)
 		return (NULL);
 	read_bytes = 1;
-	while (!(ft_strchr(str, '\n')) && read_bytes > 0)
+	while (read_bytes > 0)
 	{
 		read_bytes = read(fd, buffer, BUFFER_SIZE);
 		if (read_bytes < 0)
@@ -42,6 +42,8 @@ static char	*ft_read_file(int fd, char *str)
 		}
 		buffer[read_bytes] = 0;
 		str = ft_free_join(str, buffer);
+		if (ft_strchr(str, '\n'))
+			break;
 	}
 	free(buffer);
 	return (str);
@@ -53,7 +55,7 @@ static char	*first_line(char *buffer)
 	int		i;
 
 	i = 0;
-	if (buffer[i] == '\0')
+	if (!buffer || !buffer[0])
 		return (NULL);
 	while (buffer[i] != '\0' && buffer[i] != '\n')
 		i++;
@@ -66,12 +68,12 @@ static char	*first_line(char *buffer)
 		line[i] = buffer[i];
 		i++;
 	}
-	if (buffer[i] == '\n')
+	if (buffer[i] && buffer[i] == '\n')
 	{
 		line[i] = '\n';
 		i++;
 	}
-	line[i] = '\0';
+	//line[i] = '\0';
 	return (line);
 }
 
@@ -82,9 +84,10 @@ static char	*pass_line(char *buffer)
 	char	*line;
 
 	cont = 0;
+	j = 0;
 	while (buffer[cont] && buffer[cont] != '\n')
 		cont++;
-	if (buffer[cont] == '\0')
+	if (!buffer[cont])
 	{
 		free (buffer);
 		return (NULL);
@@ -93,7 +96,6 @@ static char	*pass_line(char *buffer)
 	if (!line)
 		return (NULL);
 	cont++;
-	j = 0;
 	while (buffer[cont])
 		line[j++] = buffer[cont++];
 	line[j] = '\0';
@@ -106,16 +108,18 @@ char	*get_next_line(int fd)
 	static char	*buffer[1024];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		if ((buffer[fd] != NULL && buffer[fd][0] != '\0'))
 		{
 			free(buffer[fd]);
 			buffer[fd] = NULL;
+			return (NULL);
 		}
-		return (NULL);
 	}
 	buffer[fd] = ft_read_file(fd, buffer[fd]);
+	if (!buffer[fd])
+		return (NULL);
 	line = first_line(buffer[fd]);
 	buffer[fd] = pass_line(buffer[fd]);
 	return (line);
