@@ -3,3 +3,5 @@ pipex
 *.o
 pipex_bonus
 libft.a
+temp
+nice
