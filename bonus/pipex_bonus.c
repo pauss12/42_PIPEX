@@ -38,8 +38,11 @@ void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
 		line = get_next_line(0);
 		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0)
 		{
-			free(line);
-			break ;
+			if (line[ft_strlen(argv[2]) + 1] == '\0')
+			{
+				free(line);
+				break ;
+			}
 		}
 		write(pipex->fd[WRITE], line, ft_strlen(line));
 		free(line);
