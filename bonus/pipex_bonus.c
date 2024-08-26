@@ -22,6 +22,42 @@ void	close_pipes(t_pipex *pipex)
 		close_fd(&pipex->pipe_father[1], "pipex->pipe_father[1]");
 }
 
+void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
+{
+	int		begin_commands;
+	char	*line;
+
+	line = NULL;
+	begin_commands = 3;
+	pipex->num_cmds = argc - 4;
+	pipex->infile = ft_strdup("temp");
+	pipex->outfile = argv[argc - 1];
+	pipex->fd[WRITE] = open(pipex->infile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	while (1)
+	{
+		line = get_next_line(0);
+		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0)
+		{
+			free(line);
+			break ;
+		}
+		write(pipex->fd[WRITE], line, ft_strlen(line));
+		free(line);
+	}
+	close_fd(&pipex->fd[WRITE], "pipex->fd[WRITE]");
+	command(pipex, argv, begin_commands);
+}
+
+void	treat_not_here_doc(t_pipex *pipex, char **argv, int argc)
+{
+	int	begin_commands;
+
+	begin_commands = 2;
+	pipex->infile = argv[1];
+	pipex->outfile = argv[argc - 1];
+	command(pipex, argv, begin_commands);
+}
+
 int	main(int argc, char *argv[], char **envp)
 {
 	t_pipex	pipex;
@@ -30,11 +66,9 @@ int	main(int argc, char *argv[], char **envp)
 	status = 0;
 	initialize_pipex(&pipex, envp, argc);
 	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
-	{
-		printf("tiene here_doc\n");
-	}
+		treat_here_doc(&pipex, argv, argc);
 	else
-		command(&pipex, argv, argc);
+		treat_not_here_doc(&pipex, argv, argc);
 	close_pipes(&pipex);
 	while (pipex.index >= 0)
 	{

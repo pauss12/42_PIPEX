@@ -35,10 +35,13 @@ typedef struct s_pipex
 	pid_t	pid;
 	int		index;
 	int		num_cmds;
+	char	*infile;
+	char	*outfile;
 }	t_pipex;
 
 //pipex.c
 void	close_pipes(t_pipex *pipex);
+void	treat_here_doc(t_pipex *pipex, char *argv[], int argc);
 
 // reserve_and_destroy_memory.c
 void	initialize_pipex(t_pipex *pipex, char **envp, int argc);
@@ -52,7 +55,7 @@ char	**get_path(char **envp);
 void	close_fd(int *fd, char *name);
 
 // execution_bonus.c
-void	command(t_pipex *pipex, char **argv, int argc);
+void	command(t_pipex *pipex, char *argv[], int begin_commands);
 void	check_if_accesible(t_pipex *pipex, char **str, char *cmd);
 void	execute(t_pipex *pipex, char *command_argv);
 
