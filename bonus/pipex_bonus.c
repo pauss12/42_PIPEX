@@ -33,6 +33,8 @@ void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
 	pipex->infile = "temp";
 	pipex->outfile = argv[argc - 1];
 	pipex->fd[WRITE] = open(pipex->infile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (pipex->fd[WRITE] == -1)
+		error_no_cmd(RED "Error\n" END "Error opening files\n", 1, pipex);
 	while (1)
 	{
 		line = get_next_line(0);
@@ -69,7 +71,7 @@ int	main(int argc, char *argv[], char **envp)
 
 	status = 0;
 	initialize_pipex(&pipex, envp);
-	if (ft_strncmp(argv[1], "here_doc", 8) == 0)
+	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
 		treat_here_doc(&pipex, argv, argc);
 	else
 		treat_not_here_doc(&pipex, argv, argc);
