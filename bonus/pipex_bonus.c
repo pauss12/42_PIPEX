@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
 #include "../include/pipex_bonus.h"
 
 void	close_pipes_and_free(t_pipex *pipex)
@@ -40,7 +38,7 @@ void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
 		line = get_next_line(0);
 		if (!line)
 			break ;
-		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0 
+		if (ft_strncmp(line, argv[2], ft_strlen(argv[2])) == 0
 			&& line[ft_strlen(argv[2]) + 1] == '\0')
 		{
 			free(line);

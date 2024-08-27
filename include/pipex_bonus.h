@@ -48,7 +48,7 @@ void	initialize_pipex(t_pipex *pipex, char **envp);
 void	free_double_str(char **str);
 
 // utils_bonus.c
-void 	print_error(char *error_message, char *cmd);
+void	print_error(char *error_message, char *cmd);
 void	error_no_cmd(char *error_message, int code);
 char	*search_path(t_pipex *pipex, char **cmd_splitted);
 char	**get_path(char **envp);

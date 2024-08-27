@@ -44,7 +44,7 @@ static char	*ft_read_file(int fd, char *str)
 		buffer[read_bytes] = 0;
 		str = ft_free_join(str, buffer);
 		if (ft_strchr(str, '\n'))
-			break;
+			break ;
 	}
 	free(buffer);
 	return (str);
