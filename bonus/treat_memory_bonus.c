@@ -39,11 +39,3 @@ void	free_double_str(char **str)
 	}
 	free(str);
 }
-
-void free_all(t_pipex *pipex, int argc)
-{
-	if (pipex->infile != NULL && pipex->num_cmds == argc - 4)
-		free(pipex->infile);
-	if (pipex->path != NULL)
-		free_double_str(pipex->path);
-}

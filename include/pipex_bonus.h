@@ -40,13 +40,12 @@ typedef struct s_pipex
 }	t_pipex;
 
 //pipex.c
-void	close_pipes(t_pipex *pipex);
+void	close_pipes_and_free(t_pipex *pipex);
 void	treat_here_doc(t_pipex *pipex, char *argv[], int argc);
 
 // reserve_and_destroy_memory.c
 void	initialize_pipex(t_pipex *pipex, char **envp);
 void	free_double_str(char **str);
-void	free_all(t_pipex *pipex, int argc);
 
 // utils_bonus.c
 void 	print_error(char *error_message, char *cmd);

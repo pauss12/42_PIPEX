@@ -14,8 +14,10 @@
 #include <unistd.h>
 #include "../include/pipex_bonus.h"
 
-void	close_pipes(t_pipex *pipex)
+void	close_pipes_and_free(t_pipex *pipex)
 {
+	if (pipex->path != NULL)
+		free_double_str(pipex->path);
 	if (pipex->pipe_father[0] != -1)
 		close_fd(&pipex->pipe_father[0], "pipex->pipe_father[0]");
 	if (pipex->pipe_father[1] != -1)
@@ -30,7 +32,7 @@ void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
 	line = NULL;
 	begin_commands = 3;
 	pipex->num_cmds = argc - 4;
-	pipex->infile = ft_strdup("temp");
+	pipex->infile = "temp";
 	pipex->outfile = argv[argc - 1];
 	pipex->fd[WRITE] = open(pipex->infile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	while (1)
@@ -73,8 +75,7 @@ int	main(int argc, char *argv[], char **envp)
 		treat_here_doc(&pipex, argv, argc);
 	else
 		treat_not_here_doc(&pipex, argv, argc);
-	close_pipes(&pipex);
-	free_all(&pipex, argc);
+	close_pipes_and_free(&pipex);
 	while (pipex.index >= 0)
 	{
 		waitpid(-1, &status, 0);
