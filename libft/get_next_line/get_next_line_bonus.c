@@ -38,6 +38,7 @@ static char	*ft_read_file(int fd, char *str)
 		if (read_bytes < 0)
 		{
 			free(buffer);
+			free(str);
 			return (NULL);
 		}
 		buffer[read_bytes] = 0;
@@ -73,7 +74,6 @@ static char	*first_line(char *buffer)
 		line[i] = '\n';
 		i++;
 	}
-	//line[i] = '\0';
 	return (line);
 }
 
@@ -94,7 +94,10 @@ static char	*pass_line(char *buffer)
 	}
 	line = ft_calloc((ft_strlen(buffer) - cont + 1), sizeof(char));
 	if (!line)
+	{
+		free(buffer);
 		return (NULL);
+	}
 	cont++;
 	while (buffer[cont])
 		line[j++] = buffer[cont++];
@@ -121,6 +124,13 @@ char	*get_next_line(int fd)
 	if (!buffer[fd])
 		return (NULL);
 	line = first_line(buffer[fd]);
+	if (line == NULL)
+		return (NULL);
 	buffer[fd] = pass_line(buffer[fd]);
+	if (buffer[fd][0] == 0)
+	{
+		free(buffer[fd]);
+		buffer[fd] = NULL;
+	}
 	return (line);
 }
