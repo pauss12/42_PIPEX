@@ -55,6 +55,6 @@ void	execute(t_pipex *pipex, char *command_argv)
 
 	str = ft_split(command_argv, ' ');
 	if (str == NULL)
-		error_no_cmd(RED "Error\n" END "Split failed\n", 1);
+		error_no_cmd(RED "Error\n" END "Split failed\n", 1, pipex);
 	check_if_accesible(pipex, str, command_argv);
 }

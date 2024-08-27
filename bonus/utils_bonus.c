@@ -23,8 +23,9 @@ void	print_error(char *error_message, char *cmd)
 	free(str);
 }
 
-void	error_no_cmd(char *error_message, int code)
+void	error_no_cmd(char *error_message, int code, t_pipex *pipex)
 {
+	close_pipes_and_free(pipex);
 	ft_putendl_fd(error_message, 2);
 	exit(code);
 }
@@ -65,7 +66,8 @@ char	**get_path(char **envp)
 			str = ft_split(envp[i] + 5, ':');
 			if (str == NULL)
 			{
-				error_no_cmd(RED "Error\n" END "Split failed\n", 1);
+				ft_putendl_fd(RED "Error\n" END "Split failed\n", 2);
+				exit(1);
 			}
 			return (str);
 		}
