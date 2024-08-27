@@ -71,7 +71,7 @@ OBJS = $(FILES:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) libft.h
 	ar rcs $(NAME) $(OBJS)
 
 ejecutar:

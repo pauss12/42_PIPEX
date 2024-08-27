@@ -32,13 +32,13 @@ OBJS_BONUS = $(FILES_BONUS:.c=.o)
 all: $(NAME)
 bonus: $(NAME_BONUS)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) include/pipex.h
 	@echo "🚀 Compiling..."
 	@make -s -C libft
 	@$(CC) $(FILES) -L libft -lft -o $(NAME)
 	@echo " Compilation finished! 👍"
 
-$(NAME_BONUS): $(OBJS_BONUS)
+$(NAME_BONUS): $(OBJS_BONUS) include/pipex_bonus.h
 	@echo "🚀 Compiling..."
 	@make -s -C libft
 	@$(CC) $(FILES_BONUS) -L libft -lft -o $(NAME_BONUS)
