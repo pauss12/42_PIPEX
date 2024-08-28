@@ -42,7 +42,11 @@ char	*search_path(t_pipex *pipex, char **cmd_splitted)
 	while (pipex->path[i] != NULL)
 	{
 		path_slash = ft_strjoin(pipex->path[i], "/");
+		if (path_slash == NULL)
+			error_no_cmd(RED "Error\n" END "Malloc failed\n", 1, pipex);
 		line = ft_strjoin(path_slash, cmd_splitted[0]);
+		if (line == NULL)
+			error_no_cmd(RED "Error\n" END "Malloc failed\n", 1, pipex);
 		free(path_slash);
 		if (access(line, F_OK | X_OK) == 0)
 			return (line);
@@ -65,10 +69,7 @@ char	**get_path(char **envp)
 		{
 			str = ft_split(envp[i] + 5, ':');
 			if (str == NULL)
-			{
-				ft_putendl_fd(RED "Error\n" END "Split failed\n", 2);
-				exit(1);
-			}
+				free_double_str(str);
 			return (str);
 		}
 		i++;
