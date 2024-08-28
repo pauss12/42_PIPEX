@@ -15,10 +15,12 @@
 static void	first_iteration(t_pipex *pipex, char *command_argv)
 {
 	pipex->fd[READ] = open(pipex->infile, O_RDONLY);
-	if (pipex->fd[READ] == -1)
-		error_no_cmd(RED "Error\n" END "Error opening files\n", 1, pipex);
-	if (access(pipex->infile, R_OK) == -1)
-		error_no_cmd(RED "Error\n" END "No read permissions for input\n", 1, pipex);
+	if (access(pipex->infile, F_OK) == -1)
+		error_no_cmd(RED "Error\n" END "File not found\n", 1, pipex);
+	else if (access(pipex->infile, W_OK) == -1)
+		error_no_cmd(RED "Error\n" END "No write permissions\n", 1, pipex);
+	else
+		error_no_cmd(RED "Error\n" END "Error opening input\n", 1, pipex);
 	if (dup2(pipex->fd[READ], STDIN_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1, pipex);
 	close_fd(&pipex->fd[READ], "pipex->fd[READ]");
@@ -35,7 +37,7 @@ static void	last_iteration(t_pipex *pipex, char *command_argv)
 	if (pipex->fd[WRITE] == -1)
 		error_no_cmd(RED "Error\n" END "Error opening output\n", 1, pipex);
 	if (access(pipex->outfile, W_OK) == -1)
-		error_no_cmd(RED "Error\n" END "No write permissions output\n", 1, pipex);
+		error_no_cmd(RED "Error\n" END "No write permissions\n", 1, pipex);
 	if (dup2(pipex->fd[WRITE], STDOUT_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1, pipex);
 	close_fd(&pipex->fd[WRITE], "pipex->fd[WRITE]");

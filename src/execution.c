@@ -20,7 +20,7 @@ void	first_command(t_pipex *pipex, char *cmd, char *file_name)
 		if (access(file_name, F_OK) == -1)
 			error_no_cmd(RED "Error\n" END "File not found\n", 1, pipex);
 		else if (access(file_name, W_OK) == -1)
-			error_no_cmd(RED "Error\n" END "No write permissions input\n", 1, pipex);
+			error_no_cmd(RED "Error\n" END "No write permissions\n", 1, pipex);
 		else
 			error_no_cmd(RED "Error\n" END "Error opening input\n", 1, pipex);
 	}
@@ -42,7 +42,7 @@ void	second_command(t_pipex *pipex, char *cmd, char *file_name)
 		if (access(file_name, F_OK) == -1)
 			error_no_cmd(RED "Error\n" END "File not found\n", 1, pipex);
 		else if (access(file_name, W_OK) == -1)
-			error_no_cmd(RED "Error\n" END "No write permissions output\n", 1, pipex);
+			error_no_cmd(RED "Error\n" END "No write permissions\n", 1, pipex);
 		else
 			error_no_cmd(RED "Error\n" END "Error opening output\n", 1, pipex);
 	}

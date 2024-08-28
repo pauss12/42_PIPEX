@@ -35,12 +35,13 @@ typedef struct s_pipex
 	pid_t	pid;
 	int		index;
 	int		num_cmds;
+	int		begin_commands;	
 	char	*infile;
 	char	*outfile;
 }	t_pipex;
 
 //pipex.c
-void	close_pipes_and_(t_pipex *pipex);
+void	close_pipes_and_free(t_pipex *pipex);
 void	treat_here_doc(t_pipex *pipex, char *argv[], int argc);
 
 // reserve_and_destroy_memory.c

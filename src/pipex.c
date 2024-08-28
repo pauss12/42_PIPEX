@@ -34,10 +34,11 @@ static void	initialize(t_pipex *pipex, char **envp)
 	pipex->pid2 = -1;
 }
 
-void close_fd(int *fd, char *name)
+void	close_fd(int *fd, char *name)
 {
-	char *str;
+	char	*str;
 
+	str = NULL;
 	if (close(*fd) == -1)
 	{
 		str = ft_strjoin(RED "Error\n" END "Error closing ", name);
