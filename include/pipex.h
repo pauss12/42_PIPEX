@@ -28,6 +28,7 @@
 typedef struct s_pipex
 {
 	char	**path;
+	char	**envp;
 	int		pipe_fd[2];
 	int		fd[2];
 	pid_t	pid;
@@ -42,10 +43,10 @@ char	*search_path(t_pipex *pipex, char **cmd_splitted);
 void	error_no_cmd(char *error_message, int code, t_pipex *pipex);
 
 // execution.c
-void	first_command(t_pipex *pipex, char *cmd, char **envp, char *file_name);
-void	execute(t_pipex *pipex, char *command_argv, char **envp);
-void	check_if_accesible(char **str, t_pipex *pipex, char *cmd, char **envp);
-void	second_command(t_pipex *pipex, char *cmd, char **envp, char *file_name);
+void	first_command(t_pipex *pipex, char *cmd, char *file_name);
+void	execute(t_pipex *pipex, char *command_argv);
+void	check_if_accesible(char **str, t_pipex *pipex, char *cmd);
+void	second_command(t_pipex *pipex, char *cmd, char *file_name);
 
 //pipex.c
 void	end_process(t_pipex *pipex);
