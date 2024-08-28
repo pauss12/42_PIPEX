@@ -33,12 +33,12 @@ static void	last_iteration(t_pipex *pipex, char *command_argv)
 {
 	pipex->fd[WRITE] = open(pipex->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (pipex->fd[WRITE] == -1)
-		error_no_cmd(RED "Error\n" END "Error opening files\n", 1, pipex);
+		error_no_cmd(RED "Error\n" END "Error opening output\n", 1, pipex);
 	if (access(pipex->outfile, W_OK) == -1)
-		ft_putstr_fd(RED "Error\n" END "No write permissions for output\n", 1);
+		error_no_cmd(RED "Error\n" END "No write permissions output\n", 1, pipex);
 	if (dup2(pipex->fd[WRITE], STDOUT_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDOUT\n", 1, pipex);
-	close_fd(&pipex->fd[WRITE], "pipex->fd[1]");
+	close_fd(&pipex->fd[WRITE], "pipex->fd[WRITE]");
 	if (dup2(pipex->pipe_father[READ], STDIN_FILENO) == -1)
 		error_no_cmd(RED "Error\n" END "dup2 failed in STDIN\n", 1, pipex);
 	close_fd(&pipex->pipe_father[READ], "pipex->pipe_father[READ]");

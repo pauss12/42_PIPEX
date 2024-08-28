@@ -22,6 +22,8 @@
 
 # define RED "\033[0;31m"
 # define END "\033[0m"
+# define WRITE 1
+# define READ 0
 
 typedef struct s_pipex
 {
@@ -37,14 +39,16 @@ char	**get_path(char **envp);
 void	free_double_str(char **str);
 void	print_error(char *error_message, char *cmd);
 char	*search_path(t_pipex *pipex, char **cmd_splitted);
-void	error_no_cmd(char *error_message, int code);
+void	error_no_cmd(char *error_message, int code, t_pipex *pipex);
 
 // execution.c
-void	first_command(t_pipex pipex, char *cmd, char **envp, char *file_name);
-void	execute(t_pipex pipex, char *command_argv, char **envp);
-void	check_if_accesible(char **str, t_pipex pipex, char *cmd, char **envp);
-void	second_command(t_pipex pipex, char *cmd, char **envp, char *file_name);
+void	first_command(t_pipex *pipex, char *cmd, char **envp, char *file_name);
+void	execute(t_pipex *pipex, char *command_argv, char **envp);
+void	check_if_accesible(char **str, t_pipex *pipex, char *cmd, char **envp);
+void	second_command(t_pipex *pipex, char *cmd, char **envp, char *file_name);
 
-void	end_process(t_pipex pipex);
+//pipex.c
+void	end_process(t_pipex *pipex);
+void	close_fd(int *fd, char *name);
 
 #endif
