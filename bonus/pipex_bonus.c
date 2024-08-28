@@ -73,6 +73,7 @@ int	main(int argc, char *argv[], char **envp)
 	t_pipex	pipex;
 	int		status;
 
+
 	status = 0;
 	initialize_pipex(&pipex, envp);
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
@@ -80,14 +81,14 @@ int	main(int argc, char *argv[], char **envp)
 	else
 		treat_not_here_doc(&pipex, argv, argc);
 	close_pipes_and_free(&pipex);
-	while (pipex.index >= 0)
+	while (pipex.index > 0)
 	{
 		waitpid(-1, &status, 0);
 		pipex.index--;
-		if (WEXITSTATUS(status) != 0 && WEXITSTATUS(status) != 127)
-			exit(0);
 	}
 	if (WEXITSTATUS(status) == 127)
 		exit(127);
+	// if (WEXITSTATUS(status) != 0 && WEXITSTATUS(status) != 127)
+	// 	exit(0);
 	return (0);
 }
