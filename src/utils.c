@@ -23,8 +23,9 @@ void	print_error(char *error_message, char *cmd)
 	free(str);
 }
 
-void	error_no_cmd(char *error_message, int code)
+void	error_no_cmd(char *error_message, int code, t_pipex *pipex)
 {
+	end_process(pipex);
 	ft_putendl_fd(error_message, 2);
 	exit(code);
 }
