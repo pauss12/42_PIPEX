@@ -69,7 +69,7 @@ char	**get_path(char **envp)
 		{
 			str = ft_split(envp[i] + 5, ':');
 			if (!str)
-				free_double_str(str);
+				return (NULL);
 			return (str);
 		}
 		i++;

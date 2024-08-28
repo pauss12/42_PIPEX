@@ -40,7 +40,7 @@ typedef struct s_pipex
 }	t_pipex;
 
 //pipex.c
-void	close_pipes_and_free(t_pipex *pipex);
+void	close_pipes_and_(t_pipex *pipex);
 void	treat_here_doc(t_pipex *pipex, char *argv[], int argc);
 
 // reserve_and_destroy_memory.c
