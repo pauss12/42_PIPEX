@@ -22,9 +22,10 @@ void	end_process(t_pipex *pipex)
 		close_fd(&pipex->pipe_fd[1], "pipex->pipe_fd[1]");
 }
 
-static void	initialize(t_pipex *pipex)
+static void	initialize(t_pipex *pipex, char **envp)
 {
-	pipex->path = NULL;
+	pipex->envp = envp;
+	pipex->path = get_path(pipex->envp);
 	pipex->pipe_fd[0] = -1;
 	pipex->pipe_fd[1] = -1;
 	pipex->fd[0] = -1;
@@ -55,15 +56,15 @@ int	main(int argc, char **argv, char **envp)
 
 	if (argc == 5)
 	{
-		initialize(&pipex);
+		initialize(&pipex, envp);
 		if (pipe(pipex.pipe_fd) == -1)
 			error_no_cmd(RED "Error\n" END "Error creating pipe\n", 1, &pipex);
 		pipex.pid = fork();
 		if (pipex.pid == 0)
-			first_command(&pipex, argv[2], envp, argv[1]);
+			first_command(&pipex, argv[2], argv[1]);
 		pipex.pid2 = fork();
 		if (pipex.pid2 == 0)
-			second_command(&pipex, argv[3], envp, argv[4]);
+			second_command(&pipex, argv[3], argv[4]);
 		end_process(&pipex);
 		waitpid(pipex.pid, &status, 0);
 		waitpid(pipex.pid2, &status, 0);
