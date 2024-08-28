@@ -13,7 +13,7 @@
 NAME = pipex
 NAME_BONUS = pipex_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g #-g3 -fsanitize=address,leak
+CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address,leak
 
 FILES = src/pipex.c \
 		src/utils.c \
@@ -54,7 +54,6 @@ fclean: clean
 	@rm -f $(NAME)
 	@rm -f $(NAME_BONUS)
 	@make -s fclean -C libft
-	@rm -f libft/libft.a
 	@echo " Deleting finished! 🗑"
 
 upload:
