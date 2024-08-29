@@ -50,6 +50,7 @@ void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
 	pipex->num_cmds = argc - 4;
 	pipex->infile = "temp";
 	pipex->outfile = argv[argc - 1];
+	pipex->is_there_here_doc = 1;
 	pipex->fd[WRITE] = open(pipex->infile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (pipex->fd[WRITE] == -1)
 	{

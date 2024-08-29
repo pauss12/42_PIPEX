@@ -36,7 +36,10 @@ static void	first_iteration(t_pipex *pipex, char *command_argv)
 
 static void	last_iteration(t_pipex *pipex, char *command_argv)
 {
-	pipex->fd[WRITE] = open(pipex->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (pipex->is_there_here_doc)
+		pipex->fd[WRITE] = open(pipex->outfile, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	else
+		pipex->fd[WRITE] = open(pipex->outfile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (pipex->fd[WRITE] == -1)
 	{
 		if (access(pipex->outfile, W_OK) == -1)

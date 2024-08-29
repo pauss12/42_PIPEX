@@ -39,6 +39,7 @@ typedef struct s_pipex
 	char	*infile;
 	char	*outfile;
 	pid_t	last_pid;
+	int		is_there_here_doc;
 }	t_pipex;
 
 //pipex.c
