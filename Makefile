@@ -12,7 +12,7 @@
 
 NAME = pipex
 NAME_BONUS = pipex_bonus
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g3 #-fsanitize=address,leak
 
 FILES = src/pipex.c \
