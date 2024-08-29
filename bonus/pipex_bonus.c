@@ -72,9 +72,11 @@ int	main(int argc, char *argv[], char **envp)
 {
 	t_pipex	pipex;
 	int		status;
-
+	int		estado;
+	int		pid;
 
 	status = 0;
+	estado = 0;
 	initialize_pipex(&pipex, envp);
 	if (ft_strncmp(argv[1], "here_doc", 9) == 0)
 		treat_here_doc(&pipex, argv, argc);
@@ -83,12 +85,12 @@ int	main(int argc, char *argv[], char **envp)
 	close_pipes_and_free(&pipex);
 	while (pipex.index > 0)
 	{
-		waitpid(-1, &status, 0);
+		pid = waitpid(-1, &status, 0);
+		if (pid == pipex.last_pid)
+			estado = status;
 		pipex.index--;
 	}
-	if (WEXITSTATUS(status) == 127)
+	if (WEXITSTATUS(estado) == 127)
 		exit(127);
-	// if (WEXITSTATUS(status) != 0 && WEXITSTATUS(status) != 127)
-	// 	exit(0);
 	return (0);
 }

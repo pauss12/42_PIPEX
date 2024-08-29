@@ -109,4 +109,5 @@ void	command(t_pipex *pipex, char *argv[], int begin_commands)
 		move_info(pipex);
 		pipex->index++;
 	}
+	pipex->last_pid = pipex->pid;
 }

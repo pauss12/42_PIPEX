@@ -38,6 +38,7 @@ typedef struct s_pipex
 	int		begin_commands;	
 	char	*infile;
 	char	*outfile;
+	pid_t	last_pid;
 }	t_pipex;
 
 //pipex.c

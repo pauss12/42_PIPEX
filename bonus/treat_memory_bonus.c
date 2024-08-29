@@ -18,6 +18,7 @@ void	initialize_pipex(t_pipex *pipex, char **envp)
 	pipex->path = get_path(pipex->envp);
 	pipex->index = 0;
 	pipex->pid = -1;
+	pipex->last_pid = -1;
 	pipex->num_cmds = 0;
 	pipex->pipe_father[0] = -1;
 	pipex->pipe_father[1] = -1;
