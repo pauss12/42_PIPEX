@@ -22,25 +22,11 @@ void	close_pipes_and_free(t_pipex *pipex)
 		close_fd(&pipex->pipe_father[1], "pipex->pipe_father[1]");
 }
 
-static void	initialize_here_doc(t_pipex *pipex, char **argv, int argc)
-{
-	pipex->begin_commands = 3;
-	pipex->num_cmds = argc - 4;
-	pipex->infile = "temp";
-	pipex->outfile = argv[argc - 1];
-}
-
-void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
+static void	read_from_stdin(t_pipex *pipex, char *argv[])
 {
 	char	*line;
 
 	line = NULL;
-	initialize_here_doc(pipex, argv, argc);
-	pipex->fd[WRITE] = open(pipex->infile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-	if (access(pipex->infile, W_OK) == -1)
-		error_no_cmd(RED "Error\n" END "No write permissions temp\n", 1, pipex);
-	else
-		error_no_cmd(RED "Error\n" END "Error opening temp\n", 1, pipex);
 	while (1)
 	{
 		line = get_next_line(0);
@@ -56,6 +42,23 @@ void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
 		free(line);
 	}
 	close_fd(&pipex->fd[WRITE], "pipex->fd[WRITE]");
+}
+
+void	treat_here_doc(t_pipex *pipex, char *argv[], int argc)
+{
+	pipex->begin_commands = 3;
+	pipex->num_cmds = argc - 4;
+	pipex->infile = "temp";
+	pipex->outfile = argv[argc - 1];
+	pipex->fd[WRITE] = open(pipex->infile, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	if (pipex->fd[WRITE] == -1)
+	{
+		if (access(pipex->infile, W_OK) == -1)
+			error_no_cmd(RED "Error\n" END "Cannot write temp\n", 1, pipex);
+		else
+			error_no_cmd(RED "Error\n" END "Error opening temp\n", 1, pipex);
+	}
+	read_from_stdin(pipex, argv);
 	command(pipex, argv, pipex->begin_commands);
 }
 

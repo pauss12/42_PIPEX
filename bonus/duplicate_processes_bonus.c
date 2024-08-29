@@ -20,7 +20,7 @@ static void	first_iteration(t_pipex *pipex, char *command_argv)
 		if (access(pipex->infile, F_OK) == -1)
 			error_no_cmd(RED "Error\n" END "File not found\n", 1, pipex);
 		else if (access(pipex->infile, W_OK) == -1)
-			error_no_cmd(RED "Error\n" END "No write permissions\n", 1, pipex);
+			error_no_cmd(RED "Error\n" END "Cannot write input\n", 1, pipex);
 		else
 			error_no_cmd(RED "Error\n" END "Error opening input\n", 1, pipex);
 	}
@@ -40,7 +40,7 @@ static void	last_iteration(t_pipex *pipex, char *command_argv)
 	if (pipex->fd[WRITE] == -1)
 	{
 		if (access(pipex->outfile, W_OK) == -1)
-			error_no_cmd(RED "Error\n" END "No write permissions\n", 1, pipex);
+			error_no_cmd(RED "Error\n" END "Cannot write output\n", 1, pipex);
 		else
 			error_no_cmd(RED "Error\n" END "Error opening output\n", 1, pipex);
 	}
