@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Elimina caracteres específicos de los extremos de una cadena.
+ * Crea una nueva cadena a partir de `s1`, eliminando los caracteres
+ * que están en el conjunto `set` tanto al principio como al final de `s1`.
+ *
+ * @param s1: Cadena de entrada de la que se eliminarán los caracteres.
+ * @param set: Conjunto de caracteres a eliminar de los extremos de `s1`.
+ * @return Un puntero a la nueva cadena resultante. Retorna NULL si la reserva de memoria falla.
+ */
 char	*ft_strtrim(char *s1, char *set)
 {
 	char	*ptr1;

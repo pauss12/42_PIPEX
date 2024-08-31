@@ -12,6 +12,16 @@
 
 #include "../libft.h"
 
+/**
+ * Busca la última aparición de un carácter en una cadena.
+ * Recorre la cadena `s` desde el final hacia el principio para encontrar
+ * la última ocurrencia del carácter `c`.
+ *
+ * @param s: Cadena en la que se busca el carácter.
+ * @param c: Carácter a buscar en la cadena.
+ * @return Un puntero a la última aparición del carácter `c` en la cadena `s`,
+ * o NULL si el carácter no se encuentra.
+ */
 char	*ft_strrchr(const char *s, int c)
 {
 	int	cont;

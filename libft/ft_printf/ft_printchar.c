@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime un solo carácter en la salida estándar.
+ * Utiliza la función `write` para enviar el carácter al descriptor de archivo 1,
+ * que corresponde a la salida estándar (stdout).
+ *
+ * @param c: Carácter a imprimir, representado como un valor entero.
+ *           La conversión de tipo asegura que se interprete correctamente como un carácter.
+ * @return El número total de caracteres impresos (siempre 1), o -1 en caso de error.
+ */
 int	ft_printchar(int c)
 {
 	int	numchar;

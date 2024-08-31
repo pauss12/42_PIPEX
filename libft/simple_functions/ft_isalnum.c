@@ -12,13 +12,19 @@
 
 #include "../libft.h"
 
+/**
+ * Verifica si un carácter dado es alfanumérico.
+ * Si el carácter es una letra (mayúscula o minúscula) o un número, retorna 1.
+ * Si el carácter no es una letra ni un número, retorna 0.
+ *
+ * @param c: El carácter a verificar.
+ * @return: 1 si el carácter es alfanumérico, 0 en caso contrario.
+ */
 int	ft_isalnum(int c)
 {
-	if ((c >= 48 && c <= 57)
-		|| (c >= 65 && c <= 90)
-		|| (c >= 97 && c <= 122))
-	{
+	if ((c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c <= 'Z')
+		|| (c >= '0' && c <= '9'))
 		return (1);
-	}
 	return (0);
 }

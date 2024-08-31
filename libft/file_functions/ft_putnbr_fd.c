@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime un número entero en un descriptor de archivo.
+ * Escribe la representación textual del número `n` en el descriptor de archivo `fd`.
+ * Maneja el caso especial del menor valor posible para un entero (`-2147483648`),
+ * así como números negativos y positivos.
+ *
+ * @param n: Número entero que se va a imprimir.
+ * @param fd: Descriptor de archivo en el que se imprimirá el número.
+ */
 void	ft_putnbr_fd(int n, int fd)
 {
 	if (n == -2147483648)

@@ -12,6 +12,16 @@
 
 #include "../libft.h"
 
+/**
+ * Une dos cadenas en una nueva cadena.
+ * Reserva memoria y concatena las cadenas `s1` y `s2`, creando una nueva cadena
+ * que contiene `s1` seguido de `s2`.
+ *
+ * @param s1: Primera cadena.
+ * @param s2: Segunda cadena.
+ * @return Un puntero a la nueva cadena resultante de la concatenación de `s1` y `s2`.
+ * Retorna NULL si la reserva de memoria falla.
+ */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;

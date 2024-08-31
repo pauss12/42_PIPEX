@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime la representación hexadecimal de un número mayor o igual a 16.
+ * Divide el número entre 16 para obtener el dígito más significativo y llama a
+ * `ft_print_hexa` recursivamente. Luego imprime el dígito menos significativo.
+ *
+ * @param number: Número entero a convertir en hexadecimal.
+ * @param type: Tipo de representación hexadecimal ('x' para minúsculas, 'X' para mayúsculas).
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	numbers_more_sixteen(unsigned int number, char type)
 {
 	int		numchar;
@@ -30,6 +39,14 @@ static int	numbers_more_sixteen(unsigned int number, char type)
 	return (numchar);
 }
 
+/**
+ * Imprime la representación hexadecimal de un número menor a 16.
+ * Convierte el número en un carácter hexadecimal (0-9, a-f, A-F) y lo imprime.
+ *
+ * @param number: Número entero a convertir en hexadecimal.
+ * @param type: Tipo de representación hexadecimal ('x' para minúsculas, 'X' para mayúsculas).
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	numbers_below_sixteen(unsigned int number, char type)
 {
 	int	numchar;
@@ -59,6 +76,15 @@ static int	numbers_below_sixteen(unsigned int number, char type)
 	return (numchar);
 }
 
+/**
+ * Imprime la representación hexadecimal de un número entero.
+ * Llama a `numbers_more_sixteen` para números mayores o iguales a 16 y a
+ * `numbers_below_sixteen` para números menores a 16.
+ *
+ * @param number: Número entero a convertir en hexadecimal.
+ * @param type: Tipo de representación hexadecimal ('x' para minúsculas, 'X' para mayúsculas).
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_print_hexa(unsigned int number, char type)
 {
 	int	numchar;

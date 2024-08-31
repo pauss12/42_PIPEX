@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime diferentes tipos de datos basados en el especificador de formato en la cadena de entrada.
+ * Esta función utiliza `va_arg` para extraer los argumentos de la lista de argumentos variable
+ * y luego llama a las funciones correspondientes para imprimir el tipo de dato adecuado.
+ *
+ * @param input: Especificador de formato que indica el tipo de dato a imprimir.
+ * @param args: Lista de argumentos variable de la función `ft_printf`.
+ * @return El número total de caracteres impresos para el formato especificado, o -1 en caso de error.
+ */
 int	ft_typeof_data(char *input, va_list args)
 {
 	int	numchar;
@@ -40,6 +49,13 @@ int	ft_typeof_data(char *input, va_list args)
 	return (numchar);
 }
 
+/**
+ * Llama a `ft_typeof_data` para procesar el especificador de formato encontrado en la cadena de entrada.
+ *
+ * @param input: Especificador de formato que indica el tipo de dato a imprimir.
+ * @param args: Lista de argumentos variable de la función `ft_printf`.
+ * @return El número total de caracteres impresos para el formato especificado, o -1 en caso de error.
+ */
 static int	check_once_encountered(char *input, va_list args)
 {
 	int		aux;
@@ -48,6 +64,14 @@ static int	check_once_encountered(char *input, va_list args)
 	return (aux);
 }
 
+/**
+ * Recorre la cadena de entrada y maneja los especificadores de formato y caracteres normales.
+ * Imprime caracteres y valores formateados utilizando `ft_typeof_data` para los especificadores de formato.
+ *
+ * @param input: Cadena de entrada que contiene los especificadores de formato y texto.
+ * @param args: Lista de argumentos variable de la función `ft_printf`.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	go_through(const char *input, va_list args)
 {
 	int		numchar;
@@ -77,6 +101,14 @@ static int	go_through(const char *input, va_list args)
 	return (numchar);
 }
 
+/**
+ * Función principal de formato e impresión. Maneja el formateo y la impresión de texto basado en
+ * una cadena de entrada con especificadores de formato, utilizando una lista de argumentos variable.
+ *
+ * @param input: Cadena de entrada que contiene los especificadores de formato y texto.
+ * @param ...: Lista variable de argumentos para los especificadores de formato.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_printf(char const *input, ...)
 {
 	int		numchar;

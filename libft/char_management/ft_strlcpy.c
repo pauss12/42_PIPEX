@@ -12,6 +12,16 @@
 
 #include "../libft.h"
 
+/**
+ * Copiar una cadena en otra con tamaño limitado.
+ * Copia hasta `dstsize - 1` caracteres de la cadena `src` en `dest`,
+ * asegurándose de que el resultado esté null-terminado si `dstsize` es mayor que 0.
+ *
+ * @param dest: Cadena de destino donde se copiará la cadena `src`.
+ * @param src: Cadena fuente que se copiará en `dest`.
+ * @param dstsize: Tamaño del buffer `dest`, incluyendo el espacio para el carácter nulo.
+ * @return La longitud total de la cadena `src`, lo que permite verificar si hubo truncamiento.
+ */
 size_t	ft_strlcpy(char *dest, char *src, size_t dstsize)
 {
 	size_t	contador;

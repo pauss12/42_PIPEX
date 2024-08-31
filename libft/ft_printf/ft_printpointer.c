@@ -12,6 +12,13 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime un número en hexadecimal cuando el número es menor o igual a 15.
+ * Imprime caracteres individuales para valores en el rango de 0 a 9 y a-f.
+ *
+ * @param number: Número en el rango de 0 a 15 para imprimir en formato hexadecimal.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	print_below_sixteen(unsigned long long number)
 {
 	int	numchar;
@@ -36,6 +43,13 @@ static int	print_below_sixteen(unsigned long long number)
 	return (numchar);
 }
 
+/**
+ * Imprime un número en formato hexadecimal usando recursión.
+ * Divide el número en dígitos hexadecimales y llama a sí misma para imprimir los dígitos más significativos primero.
+ *
+ * @param number: Número en formato decimal que se imprimirá en formato hexadecimal.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_print_hexa_changed(unsigned long long number)
 {
 	int	numchar;
@@ -53,6 +67,13 @@ int	ft_print_hexa_changed(unsigned long long number)
 	return (numchar);
 }
 
+/**
+ * Imprime un puntero en formato hexadecimal, precedido por "0x".
+ * Llama a `ft_print_hexa_changed` para imprimir la representación hexadecimal del puntero.
+ *
+ * @param pointer: Valor del puntero que se imprimirá en formato hexadecimal.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_printpointer(unsigned long long pointer)
 {
 	int	numchar;

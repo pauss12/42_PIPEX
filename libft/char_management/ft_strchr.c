@@ -12,6 +12,17 @@
 
 #include "../libft.h"
 
+/**
+ * Busca la primera aparición de un carácter en una cadena.
+ * Recorre la cadena `s` buscando la primera aparición del carácter `c`.
+ * Si encuentra el carácter, devuelve un puntero a la posición en la cadena.
+ * Si el carácter `c` es el carácter nulo ('\0'), devuelve un puntero al final de la cadena.
+ *
+ * @param s: Cadena en la que se busca el carácter.
+ * @param c: Carácter a buscar en la cadena.
+ * @return Un puntero a la primera aparición del carácter `c` en la cadena `s`.
+ * Retorna NULL si el carácter no se encuentra.
+ */
 char	*ft_strchr(char *s, int c)
 {
 	int	cont;

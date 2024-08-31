@@ -12,6 +12,13 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime el número entero más negativo que puede representarse en un entero de 32 bits.
+ * Maneja el caso especial para el menor valor posible, que es `-2147483648`, imprimiendo
+ * el signo '-' seguido de la cadena "2147483648".
+ *
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	min_negative(void)
 {
 	int	numchar;
@@ -29,7 +36,13 @@ static int	min_negative(void)
 	numchar = numchar + aux;
 	return (numchar);
 }
-
+/**
+ * Imprime un número entero negativo.
+ * Imprime el signo negativo seguido de la representación textual del número entero positivo.
+ *
+ * @param n: Número entero negativo a imprimir.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	negative_numbers(int n)
 {
 	int	aux;
@@ -49,6 +62,13 @@ static int	negative_numbers(int n)
 	return (numchar);
 }
 
+/**
+ * Imprime un número entero positivo mayor de 9.
+ * Divide el número en dígitos individuales y los imprime en orden.
+ *
+ * @param n: Número entero positivo a imprimir.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	other_cases(int n)
 {
 	int	aux;
@@ -68,6 +88,14 @@ static int	other_cases(int n)
 	return (numchar);
 }
 
+/**
+ * Imprime un número entero.
+ * Maneja casos especiales para el número entero más negativo, números negativos,
+ * números de un solo dígito y números positivos mayores de 9.
+ *
+ * @param n: Número entero a imprimir.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_print_integer(int n)
 {
 	int	numchar;

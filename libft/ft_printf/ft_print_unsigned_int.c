@@ -12,6 +12,13 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime un número entero sin signo mayor de 9.
+ * Divide el número en dígitos individuales y los imprime en orden, comenzando por los dígitos más significativos.
+ *
+ * @param number: Número entero sin signo a imprimir.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 static int	other_cases_unsigned(unsigned int number)
 {
 	unsigned int	numchar;
@@ -30,6 +37,13 @@ static int	other_cases_unsigned(unsigned int number)
 	return (numchar);
 }
 
+/**
+ * Imprime un número entero sin signo.
+ * Maneja el caso especial para números de un solo dígito y usa `other_cases_unsigned` para números mayores de 9.
+ *
+ * @param number: Número entero sin signo a imprimir.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_print_unsigned_int(unsigned int number)
 {
 	unsigned int	numchar;

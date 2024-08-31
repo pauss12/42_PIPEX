@@ -12,6 +12,17 @@
 
 #include "../libft.h"
 
+/**
+ * Busca una subcadena en una cadena limitada por un tamaño.
+ * Busca la primera aparición de la subcadena `needle` en la cadena `haystack`,
+ * pero solo dentro de los primeros `len` caracteres de `haystack`.
+ *
+ * @param haystack: Cadena en la que se realiza la búsqueda.
+ * @param needle: Subcadena que se busca en `haystack`.
+ * @param len: Número máximo de caracteres de `haystack` a examinar.
+ * @return Un puntero al comienzo de la primera aparición de `needle` en `haystack`,
+ * o NULL si `needle` no se encuentra en los primeros `len` caracteres.
+ */
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	cont1;

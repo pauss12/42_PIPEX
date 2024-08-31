@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Calcula el signo del número basado en los caracteres de signo en la cadena.
+ *
+ * @param numminus: Contador de signos negativos encontrados.
+ * @param str: La cadena de caracteres de la cual extraer el signo.
+ * @param i: Índice actual en la cadena.
+ * @return: El contador de signos negativos (0 o 1).
+ * Actualiza el índice `i` para que apunte al siguiente carácter después del signo.
+ */
 static int	cal_sig(int numminus, char *str, int *i)
 {
 	if (str[*i] != '\0' && (str[*i] == '+' || str[*i] == '-'))
@@ -23,6 +32,13 @@ static int	cal_sig(int numminus, char *str, int *i)
 	return (numminus);
 }
 
+/**
+ * Convierte una cadena de caracteres a un número entero largo, teniendo en cuenta los signos.
+ *
+ * @param str: La cadena de caracteres que se convertirá.
+ * @param state: Estado para indicar si el valor está fuera del rango de un entero (1 si fuera de rango, 0 si dentro del rango).
+ * @return: El valor entero convertido.
+ */
 long	ft_atoi_changed(char *str, int *state)
 {
 	int					sig;

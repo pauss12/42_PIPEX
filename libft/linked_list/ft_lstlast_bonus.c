@@ -12,6 +12,15 @@
 
 #include "../libft.h"
 
+/**
+ * Devuelve el último nodo de una lista enlazada.
+ * Mientras haya un siguiente nodo en la lista, avanza al siguiente nodo.
+ * Cuando ya no haya un siguiente nodo, retorna el nodo actual, que es el
+ * último nodo de la lista.
+ *
+ * @param lst: Puntero al primer nodo de la lista.
+ * @return: El último nodo de la lista.
+ */
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (lst == 0)

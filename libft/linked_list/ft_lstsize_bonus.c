@@ -12,6 +12,17 @@
 
 #include "../libft.h"
 
+/**
+ * Calcula el tamaño de una lista enlazada, es decir, el número de nodos
+ * en la lista.
+ * Pasa al siguiente nodo y aumenta el contador en 1 mientras la lista
+ * no esté vacía.
+ * Cuando la lista esté vacía, retorna el contador, que es el tamaño de
+ * la lista.
+ *
+ * @param lst: Puntero al primer nodo de la lista.
+ * @return: El tamaño de la lista.
+ */
 int	ft_lstsize(t_list *lst)
 {
 	int	tam;

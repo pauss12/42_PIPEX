@@ -12,6 +12,17 @@
 
 #include "../libft.h"
 
+/**
+ * Concatenar dos cadenas con tamaño limitado.
+ * Agrega la cadena `src` al final de la cadena `dest`, asegurándose de no
+ * exceder el tamaño total de `dstsize`, incluyendo el carácter nulo.
+ * Si `dstsize` es menor que la longitud de `dest`, no se concatena nada.
+ *
+ * @param dest: Cadena de destino, donde se añadirá la cadena `src`.
+ * @param src: Cadena fuente que se añadirá al final de `dest`.
+ * @param dstsize: Tamaño total del buffer `dest`, incluyendo el espacio para el carácter nulo.
+ * @return La longitud total que habría tenido la cadena si no hubiese habido limitación por `dstsize`.
+ */
 size_t	ft_strlcat(char *dest, char *src, size_t dstsize)
 {
 	size_t	i;

@@ -12,12 +12,18 @@
 
 #include "../libft.h"
 
+/**
+ * Verifica si un carácter dado es una letra.
+ * Si el carácter es una letra (mayúscula o minúscula), retorna 1.
+ * Si el carácter no es una letra, retorna 0.
+ *
+ * @param c: El carácter a verificar.
+ * @return: 1 si el carácter es una letra, 0 en caso contrario.
+ */
 int	ft_isalpha(int c)
 {
 	if ((c >= 'A' && c <= 'Z')
 		|| (c >= 'a' && c <= 'z'))
-	{
 		return (1);
-	}
 	return (0);
 }

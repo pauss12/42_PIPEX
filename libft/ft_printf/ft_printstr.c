@@ -12,6 +12,13 @@
 
 #include "../libft.h"
 
+/**
+ * Imprime una cadena de caracteres en la salida estándar.
+ * Si el puntero de la cadena es NULL, imprime "(null)".
+ *
+ * @param str: Puntero a la cadena de caracteres a imprimir.
+ * @return El número total de caracteres impresos, o -1 en caso de error.
+ */
 int	ft_printstr(char *str)
 {
 	int	numchar;

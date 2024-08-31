@@ -12,6 +12,14 @@
 
 #include "../libft.h"
 
+/**
+ * Escribe ceros en un bloque de memoria.
+ * Llama a la función ft_memset con el puntero a un bloque de memoria,
+ * el valor 0 y el tamaño como argumentos.
+ *
+ * @param str: Bloque de memoria en el que escribir ceros.
+ * @param n: Tamaño del bloque de memoria.
+ */
 void	ft_bzero(void *s, int size)
 {
 	ft_memset(s, 0, size);

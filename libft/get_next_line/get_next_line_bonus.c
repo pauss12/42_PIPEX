@@ -12,6 +12,13 @@
 
 #include "../libft.h"
 
+/**
+ * Une dos cadenas y libera la memoria de la primera cadena.
+ *
+ * @param str: La cadena original a la que se le agregará el contenido del buffer.
+ * @param buffer: La cadena que se unirá al final de la cadena original.
+ * @return: La nueva cadena unida, o NULL en caso de error.
+ */
 static char	*ft_free_join(char *str, char *buffer)
 {
 	char	*aux;
@@ -21,6 +28,13 @@ static char	*ft_free_join(char *str, char *buffer)
 	return (aux);
 }
 
+/**
+ * Lee el contenido del archivo descriptor 'fd' y lo almacena en 'str'.
+ *
+ * @param fd: El descriptor de archivo desde el cual leer.
+ * @param str: La cadena que acumulará el contenido leído.
+ * @return: La cadena acumulada, o NULL en caso de error.
+ */
 static char	*ft_read_file(int fd, char *str)
 {
 	int		read_bytes;
@@ -50,6 +64,12 @@ static char	*ft_read_file(int fd, char *str)
 	return (str);
 }
 
+/**
+ * Extrae la primera línea de la cadena 'buffer'.
+ *
+ * @param buffer: La cadena de la cual extraer la primera línea.
+ * @return: La primera línea, incluyendo el salto de línea si está presente.
+ */
 static char	*first_line(char *buffer)
 {
 	char	*line;
@@ -77,6 +97,12 @@ static char	*first_line(char *buffer)
 	return (line);
 }
 
+/**
+ * Elimina la primera línea de la cadena 'buffer' y devuelve el resto.
+ *
+ * @param buffer: La cadena de la cual se eliminará la primera línea.
+ * @return: El resto de la cadena después de la primera línea, o NULL si no hay más contenido.
+ */
 static char	*pass_line(char *buffer)
 {
 	int		cont;
@@ -106,6 +132,12 @@ static char	*pass_line(char *buffer)
 	return (line);
 }
 
+/**
+ * Lee la siguiente línea del archivo descriptor 'fd'.
+ *
+ * @param fd: El descriptor de archivo desde el cual leer.
+ * @return: La siguiente línea del archivo, o NULL si se ha alcanzado el final del archivo o ocurre un error.
+ */
 char	*get_next_line(int fd)
 {
 	static char	*buffer[1024];
